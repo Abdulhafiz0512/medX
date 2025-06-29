@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { apiService } from '../services/ApiService';
+import { apiService } from '../../services/ApiService';
 import { 
   Star, 
   ArrowLeft, 
@@ -18,9 +18,9 @@ import {
   Clock as ClockIcon,
   Building2
 } from 'lucide-react';
-import { Button } from '../components/ui/Button';
-import AppointmentModal from '../components/appointments/AppointmentModal';
-import ReviewList from '../components/reviews/ReviewList';
+import { Button } from '../ui/Button';
+import AppointmentModal from '../appointments/AppointmentModal';
+import ReviewList from '../reviews/ReviewList';
 
 const DoctorDetail = ({ doctorId }) => {
   const navigate = useNavigate();
@@ -46,9 +46,8 @@ const DoctorDetail = ({ doctorId }) => {
     const fetchDoctor = async () => {
       try {
         setLoading(true);
-        // Use the API service to get doctor data
-        const doctors = await apiService.getDoctors();
-        const foundDoctor = doctors.find(d => d.id.toString() === doctorId);
+        // Use the API service to get doctor data by ID
+        const foundDoctor = await apiService.getDoctorById(doctorId);
         
         if (foundDoctor) {
           // Enhance the doctor data with additional fields for the detail view
@@ -66,11 +65,12 @@ const DoctorDetail = ({ doctorId }) => {
               { degree: 'Residentura', institution: 'Umumiy kasalxona', year: '2013' },
               { degree: 'Fellowship', institution: 'Ixtisoslik klinikasi', year: '2016' }
             ],
-            services: [
-              'Maslahat',
-              'Tashxis',
-              'Davolash',
-              'Keyingi parvarish'
+            // Keep the original services structure from mock data
+            services: foundDoctor.services || [
+              { name: 'Maslahat', price: 150000 },
+              { name: 'Tashxis', price: 200000 },
+              { name: 'Davolash', price: 300000 },
+              { name: 'Keyingi parvarish', price: 100000 }
             ],
             reviews: [
               {
@@ -270,7 +270,7 @@ const DoctorDetail = ({ doctorId }) => {
                   onClick={handleBookAppointment}
                   size="sm"
                 >
-                  <Calendar className="w-4 h-4 mr-1" /> Uchrashuv bron qilish
+                  <Calendar className="w-4 h-4 mr-1" /> Qabul
                 </Button>
               </div>
             </div>

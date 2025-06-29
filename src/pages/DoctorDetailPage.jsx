@@ -1,6 +1,6 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import DoctorDetail from './DoctorDetail';
+import DoctorDetail from '../components/doctors/DoctorDetail';
 
 const DoctorDetailPage = () => {
   const { id } = useParams();

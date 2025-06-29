@@ -121,7 +121,7 @@ const ClinicDetail = ({ clinicId }) => {
                   <Phone className="w-4 h-4 mr-1" /> Qo'ng'iroq
                 </Button>
                 <Button size="sm">
-                  <Calendar className="w-4 h-4 mr-1" /> Uchrashuv bron qilish
+                  <Calendar className="w-4 h-4 mr-1" /> Qabul
                 </Button>
               </div>
             </div>
