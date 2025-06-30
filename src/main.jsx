@@ -19,8 +19,16 @@ import LoginPage from './pages/LoginPage';
 
 // Wrapper component to handle auth state and routing
 const AppRouter = () => {
-  const { user } = useAuthContext();
+  const { user, loading } = useAuthContext();
   
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <div className="text-xl">Yuklanmoqda...</div>
+      </div>
+    );
+  }
+
   // If user is not logged in, redirect to login
   if (!user) {
     return <Navigate to="/login" replace />;
